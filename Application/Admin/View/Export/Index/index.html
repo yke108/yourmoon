@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">修改个别员工应勤天数（{$month}）
+        	<a href="{:U('exportFtp')}" class="btn btn-info btn-sm alink_r cs_ajax_link">导出到FTP</a>
+        	<a href="{:U('export')}" class="btn btn-info btn-sm alink_r">导出到本地</a>
+            <div style="clear:both"></div>
+		</h3>
+		<div class="well clearfix">
+			<div class="pull-left">
+				<form class="form-horizontal cs_ajax_form form-inline" method="get" action="{:U('')}">
+					<input name="real_name" value="{$get.real_name}" type="text" class="form-control input-sm" placeholder="请输入姓名"/>
+					<button class="btn btn-default btn-sm" type="submit">搜索</button>
+				</form>
+			</div>
+		</div>
+		<div class="row sepH_c">
+			<div class="col-sm-12 col-md-12">
+				<table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+							<th>员工编号</th>
+							<th>姓名</th>
+							<th>月份</th>
+							<th>当月日历天数</th>
+							<th>应勤天数</th>
+							<th>实勤天数</th>
+							<th>加班天数</th>
+							<th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<volist name="list" id="vo">
+							<tr class="rowlink top_action">
+								<td>{$vo.user_no}</td>
+								<td>{$vo.real_name}</td>
+								<td>{$vo.month}</td>
+								<td>{$vo.all_days}</td>
+								<td>{$vo.should_days}</td>
+								<td>{$vo.actual_days}</td>
+								<td>{$vo.over_days}</td>
+								<td>
+									<a class='cs_ajax_link hy_show_modal' hy_w='800' hy_h='' href="{:U('edit',array('id'=>$vo['id']))}">编辑</a>
+								</td>
+							</tr>
+						</volist>
+                    </tbody>
+                </table>
+                <div id="pwrap">{$pager}</div>
+			</div>
+		</div>
+	</div>
+</div>

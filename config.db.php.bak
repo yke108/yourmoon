@@ -1,0 +1,21 @@
+<?php
+define('DK_DB_HOST', '127.0.0.1');
+define('DK_DB_NAME', 'yourmoon');
+define('DK_DB_USER', 'root');
+define('DK_DB_PWD', 'root');
+define('DK_DB_PORT', 3306);
+define('DK_DB_PREFIX', 'hy_');
+
+define('DK_DOMAIN', 'http://yourmoon.com');
+define('DK_PUBLIC_URL', '/public'); //定义__PUBLIC__的路径
+define('DK_UPLOAD_URL', '/upload/');	//定义__UPLOAD__的路径
+
+define('DKSITE_TSDIR', dirname(__FILE__));
+define('DKSITE_THINKPHP', dirname(__FILE__));
+define('DKSITE_TSSDIR', DKSITE_TSDIR.'/Site');
+
+define('APP_PATH', DKSITE_TSDIR.'/Application/');
+define('UPLOAD_PATH', DKSITE_TSSDIR.'/upload/');
+define('RUNTIME_PATH', DKSITE_TSDIR.'/Runtime/');
+
+if(!isset($no_think_php)) require DKSITE_THINKPHP.'/ThinkPHP/ThinkPHP.php';

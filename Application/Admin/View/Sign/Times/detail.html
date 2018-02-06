@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">打卡明细</h3>
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">员工</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.real_name}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">门店</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.shop_name|default='—'}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">地址</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.address}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">状态</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.status_label}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">原因</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" readonly>{$info.reason}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">打卡时间</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.add_time|date='Y-m-d H:i:s',###}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">相片</label>
+					<div class="col-sm-8">
+						<volist name="info.images" id="image">
+						<img src="{$image}">
+						</volist>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<h3 class="heading">打卡规则</h3>
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">限定时间</label>
+					<div class="col-sm-8">
+						<eq name="info.rule.time" value="1">
+						<input class="input-xlarge form-control" type="text" value="是" readonly>
+						<else/>
+						<input class="input-xlarge form-control" type="text" value="否" readonly>
+						</eq>
+					</div>
+				</div>
+				<eq name="info.rule.time" value="1">
+				<div class="form-group">
+					<label class="control-label col-sm-2">时间区间</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.rule.start}-{$info.rule.end}" readonly>
+					</div>
+				</div>
+				</eq>
+				<div class="form-group">
+					<label class="control-label col-sm-2">需要定位</label>
+					<div class="col-sm-8">
+						<eq name="info.rule.location" value="1">
+						<input class="input-xlarge form-control" type="text" value="是" readonly>
+						<else/>
+						<input class="input-xlarge form-control" type="text" value="否" readonly>
+						</eq>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+    </div>
+</div>
+	

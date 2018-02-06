@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading"><gt name="info.shop_id" value="0">编辑<else/>添加</gt></h3>
+		<form class="form-horizontal cs_ajax_form" action="{:U('')}" method="post" enctype="multipart/form-data">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">登录帐号</label>
+					<div class="col-sm-8 col-md-8">
+                    	<input type="text" class='input-xlarge form-control' name="username" value="{$info.username}" required>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">密码</label>
+					<div class="col-sm-8 col-md-8">
+						<if condition="$info['admin_id']">
+                    	<input type="password" class='input-xlarge form-control' name="password" value="" placeholder="留空表示不修改密码">
+                    	<else />
+                    	<input type="password" class='input-xlarge form-control' name="password" value="" placeholder="">
+                    	</if>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">姓名</label>
+					<div class="col-sm-8 col-md-8">
+                    	<input type="text" class='input-xlarge form-control' name="admin_name" value="{$info.admin_name}" required>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">角色</label>
+					<div class="col-sm-8 col-md-8">	
+                    <volist name="role_list" id="vo">
+                    	<label class="checkbox-inline">
+					        <input type="checkbox" name="role_ids[]" {:m_checked($vo['role_id'], explode(',', $info['role_ids']))} value="{$vo['role_id']}"> {$vo.role_name}
+					    </label>
+					</volist>
+                    </div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-8 col-sm-offset-2">
+                    	<input type='hidden' name='admin_id' value="{$info.admin_id}" />
+						<button class="btn btn-default" type="submit">确认并保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+    </div>
+</div>

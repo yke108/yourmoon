@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+    	<h3 class="heading">安卓版本控制
+            <div style="clear:both"></div>
+		</h3>
+		<form class="form-horizontal cs_ajax_form" action="{:U('')}" method="post" enctype="multipart/form-data">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">最新版本号</label>
+					<div class="col-sm-6 col-md-6">
+                    <input type="text" class='input-xlarge form-control' name="android_latest_version" value="{$android_latest_version}" required>
+                    低于此版本时，提示更新
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">最低版本号</label>
+					<div class="col-sm-6 col-md-6">
+                    <input type="text" class='input-xlarge form-control' name="android_minimum_version" value="{$android_minimum_version}" required>
+                    低于此版本时，强制更新
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">新版本更新说明</label>
+					<div class="col-sm-6 col-md-6">
+					<textarea class='form-control' rows="15" name="android_update_info" required>{$android_update_info}</textarea>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">新版下载地址</label>
+					<div class="col-sm-6 col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control" name="android_download_url" value="{$android_download_url}" readonly>
+							<input type="file" id="upload-file" style="width: 0;height: 0">
+							<label class="input-group-addon" for="upload-file">上传apk</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-8 col-sm-offset-2">
+						<button class="btn btn-default" type="submit">确认并保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#upload-file").change(function () {
+            var formData = new FormData();
+            formData.append("Filedata", document.getElementById("upload-file").files[0]);
+            $.ajax({
+                url: "{:U('site/upload/uploadFile')}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function (data) {
+                	if (data.error == 0) {
+                		$('input[name=android_download_url]').val(data.url);
+                	} else{
+                		alert(data.message);
+                	} 
+                },
+                error: function () {
+                    alert("上传失败！");
+                }
+            });
+        });
+    });
+</script>

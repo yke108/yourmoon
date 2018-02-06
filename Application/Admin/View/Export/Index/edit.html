@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">设置应勤天数</h3>
+			<form class="form-horizontal cs_ajax_form" method="post" action="{:U('edit')}">
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label col-sm-2">姓名</label>
+						<div class="col-sm-4">
+							<input name="real_name" class="input-sm form-control" type="text" value="{$info.real_name}" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">应勤天数</label>
+						<div class="col-sm-4">
+							<input name="should_days" class="input-sm form-control" type="text" value="{$info.should_days}" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-2">
+							<input type="hidden" name="id" value="{$info.id}">
+							<button href="" class="btn btn-default" type="submit">保存</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+    </div>
+</div>
+	

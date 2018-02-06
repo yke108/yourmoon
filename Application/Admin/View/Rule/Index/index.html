@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">岗位列表
+            <a id="rec_add" href="{:U('edit')}" class="btn btn-info btn-sm alink_r cs_ajax_link hy_show_modal" hy_w='800' hy_h=''>添加</a>
+            <div style="clear:both"></div>
+		</h3>
+		<div class="row sepH_c">
+			<div class="col-sm-12 col-md-12">
+				<table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+							<th>岗位ID</th>
+							<th>岗位名称</th>
+							<th>时长（h）</th>
+							<th>打卡日</th>
+							<th>打卡次数</th>
+							<th width="40%">规则说明</th>
+							<th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<volist name="list" id="vo">
+							<tr class="rowlink top_action">
+								<td align="center">{$vo.rule_id}</td>
+								<td>{$vo.rule_name}</td>
+								<td align="center"><if condition="$vo['min_hour'] neq 0">{$vo.min_hour}<else/>不限定</if></td>
+								<td>{$vo.days}</td>
+								<td align="center">{:count($vo['times'])}</td>
+								<td>{$vo.instruction}</td>
+								<td>
+									<a class='cs_ajax_link hy_show_modal' hy_w='800' hy_h='' href="{:U('edit',array('rule_id'=>$vo['rule_id']))}">编辑</a>
+                                    <a class='cs_ajax_link hy_show_modal cs_del_confirm' href="{:U('del',array('rule_id'=>$vo['rule_id']))}" cs_tip="删除不可恢复，确认删除！">删除</a>
+								</td>
+							</tr>
+						</volist>
+                    </tbody>
+                </table>
+                <div id="pwrap">{$pager}</div>
+			</div>
+		</div>
+	</div>
+</div>

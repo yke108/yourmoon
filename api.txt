@@ -1,0 +1,183 @@
+http://oa.ym.t.weixinren.cn:8880/api/index.php
+@param
+- vsign	签名
+- rstr    随机字符串
+- client
+- version
+@return
+- 200 成功
+- 301 签名失败
+- 302 未登录
+- 303 登录超时
+- 304 帐号已删除
+- 305 请先完善资料
+- 306 手机号已经存在
+- 400 失败，给用户显示提示语
+
+1、上传图片
+/public/upload
+
+2、获取手机验证码
+/public/getVerify
+- phone  手机号
+- type   类型：1-注册，2-找回密码
+
+3、注册
+/public/register
+@param
+- phone  手机号
+- password  MD5密码
+- verify_code  验证码
+- invite_code  邀请码
+@return 
+- token
+
+4、上传头像
+/user/edit
+@param
+- token  Token
+- avatar  头像
+@return 
+
+5、登录
+/public/login
+@param
+- phone  手机号
+- password  MD5密码
+@return 
+- status 1-正常，0-审核中
+- token
+
+6、门店列表
+/public/shopList
+
+7、获取用户信息
+/user/getInfo
+@param
+- token  Token
+
+8、忘记密码
+/public/forgetPassword
+@param
+- phone  手机号
+- password  新密码
+- verify_code  验证码
+
+9、获取通知列表
+/notice/getList
+@param
+- token  
+- page  
+- pagesize  
+@return
+- hasRead 1-已读，0-未读
+
+10、获取通知详情
+/notice/getInfo
+@param
+- token  
+- notice_id  
+
+11、打卡首页数据
+/sign/index
+@param
+- token  
+@return
+- status 状态：1:可以打卡，2-休假不必打卡，3-打卡完成
+
+12、打卡
+/sign/add
+@param
+- token  
+- image 
+- address 
+- latitude 
+- longitude 
+@return
+- status 状态：1:正常，2-时间异常，3-定位异常
+
+13、填写异常理由
+/sign/writeReason
+@param
+- token  
+- detail_id 
+- reason 
+
+14、根据月份查询打卡记录
+/sign/month
+@param
+- token  
+- month Y-m
+$return
+- list  status 0-没有出勤，1-正常，2-异常
+
+14、根据日期查询打卡记录
+/sign/date
+@param
+- token  
+- date  Y-m-d
+
+15、申请考勤正常
+/apply/add
+@param
+- token  
+- date  Y-m-d
+- reason
+- image 图片，多张用逗号隔开
+
+16、申请列表
+/apply/applyList
+@param
+- token  
+- status  状态：-1全部，0待审批，1通过，2不通过
+- month  Y-m
+- page  页码，默认：1
+- pagesize  每页显示数量，默认：10
+
+17、审批列表
+/apply/auditList
+@param
+- token  
+- status  状态：-1全部，0待审批，1通过，2不通过
+- month  Y-m
+- real_name 姓名
+- page  页码，默认：1
+- pagesize  每页显示数量，默认：10
+
+18、审批
+/apply/audit
+@param
+- token  
+- status  1-通过，2-不通过
+- apply_id  申请ID
+- comment  审批文字
+
+19、用户反馈
+/user/suggest
+@param
+- token  
+- content  意见内容
+- remark  备注
+
+20、获取版本更新信息
+/public/version
+@param
+- type  1-安卓，2-苹果
+
+21、关于我们
+/public/aboutUs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

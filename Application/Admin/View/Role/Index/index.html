@@ -1,0 +1,54 @@
+<?php
+	function treeEcho($list, $id=0, $deep=0) {
+		$str = '';
+		if (empty($list)) return $str;
+		$deep_str = '';
+		for ($i=0; $i < $deep; $i++) { 
+			$deep_str .= '└─ ';
+		}
+		$in = $deep == 0 ? 'in' : 'in';
+		$str .= '<tr id="'.$id.'" class="panel-collapse collapse '.$in.'">';
+		$str .= '<td colspan="4" style="margin:0;padding:0"><table class="table table-bordered">';
+		foreach($list as $vo) {
+			$str .= '<tr data-toggle="collapse" data-target="#'.$vo['role_id'].'">';
+			$str .= '<td width="30%">'.$deep_str.$vo['role_name'].'</td>';
+			$str .= '<td width="20%">'.($deep+1).'</td>';
+			$str .= '<td width="30%">'.$vo['rule_name'].'</td>';
+			$str .= '<td width="20%">
+				<a class="cs_ajax_link hy_show_modal" hy_w="600" hy_h="" href="'.U('edit',['role_id'=>$vo['role_id']]).'">编辑</a>
+                <a class="cs_ajax_link hy_show_modal cs_del_confirm" href="'.U('del',['role_id'=>$vo['role_id']]).'" cs_tip="删除不可恢复，确认删除！">删除</a></td></tr>';
+			if (isset($vo['children'])) {
+				$str .= treeEcho($vo['children'], $vo['role_id'], $deep+1);
+			}
+		}
+		$str .= '</table></td></tr>';
+		return $str;
+	}
+?>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">规则列表
+            <a id="rec_add" href="{:U('edit')}" class="btn btn-info btn-sm alink_r cs_ajax_link hy_show_modal" hy_w='600' hy_h=''>添加</a>
+            <div style="clear:both"></div>
+		</h3>
+		<div class="row sepH_c">
+			<table class="table table-bordered tree-table">
+			   <thead>
+			      <tr>
+			         <th width="30%">角色名称</th>
+			         <th width="20%">级数</th>
+			         <th width="30%">规则名称</th>
+			         <th width="20%">操作</th>
+			      </tr>
+			   </thead>
+				<php>echo treeEcho($list);</php>
+			</table>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+	.tree-table table {
+		margin:0;
+		padding:0;
+	}
+</style>

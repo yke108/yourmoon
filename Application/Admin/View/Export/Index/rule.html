@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">设置岗位默认应勤天数（{$month}）</h3>
+			<form class="form-horizontal cs_ajax_form" method="post" action="{:U('addDefaultDays')}">
+				<fieldset>
+					<volist name="list" id="vo">
+					<div class="form-group">
+						<label class="control-label col-sm-2">{$vo.rule_name}</label>
+						<div class="col-sm-4">
+							<input name="days[]" class="input-sm form-control" type="text" required>
+						</div>
+					</div>
+					</volist>
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-2">
+							<button href="" class="btn btn-default" type="submit">保存</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+    </div>
+</div>
+	

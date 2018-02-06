@@ -1,0 +1,179 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3 class="heading">打卡明细</h3>
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">日期</label>
+					<div class="col-sm-8">
+						<php>
+							$weekarray=array("周日","周一","周二","周三","周四","周五","周六");
+							$weekname = $weekarray[date("w", strtotime($info['date']))];
+						</php>
+						<input class="input-xlarge form-control" type="text" value="{$info.date}（{$weekname}）" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">员工</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.real_name}" readonly>
+					</div>
+				</div>
+				<gt name="info.rule.min_hour" value="0">
+				<div class="form-group">
+					<label class="control-label col-sm-2">工作时长</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.work_time}h" readonly>
+					</div>
+				</div>
+				</gt>
+				<div class="form-group">
+					<label class="control-label col-sm-2">状态</label>
+					<div class="col-sm-8">
+						<eq name="info.status" value="2">
+							<h3><span class="label label-danger">异常</span></h3>
+						<else/>
+							<h3><span class="label label-success">正常</span></h3>
+						</eq>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="title" class="control-label col-sm-2">打卡记录</label>
+					<div class="col-sm-8">
+						<table class="table table-striped table-bordered">
+		                    <thead>
+		                        <tr>
+									<th>门店</th>
+									<th>相片</th>
+									<th>地址</th>
+									<th>异常原因</th>
+									<th>状态</th>
+									<th>时间</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    	<volist name="info.list" id="vo">
+									<tr class="rowlink top_action">
+										<td>{$vo.shop_name|default="—"}</td>
+										<td>
+											<volist name="vo.images" id="image">
+											<a href="{$image}" target="_blank"><img src="{$image}"  height="40"></a>
+											</volist>
+										</td>
+										<td>{$vo.address}</td>
+										<td>{$vo.reason}</td>
+										<td>
+											<if condition="$vo['status'] eq 1">
+												<span class="label label-success">{$vo.status_label}</span>
+											<else/>
+												<span class="label label-danger">{$vo.status_label}</span>
+											</if>
+										</td>
+										<td>{$vo.add_time|date="H:i:s",###}</td>
+									</tr>
+								</volist>
+		                	</tbody>
+		                </table>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+
+		<!-- 规则展示部分 -->
+		<h3 class="heading">规则参考</h3>
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-2">规则名称</label>
+					<div class="col-sm-8">
+						<input class="input-xlarge form-control" type="text" value="{$info.rule.rule_name}" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">工作时长</label>
+					<div class="col-sm-8">
+						<eq name="info.rule.min_hour" value="0">
+						<input class="input-xlarge form-control" type="text" value="不限定" readonly>
+						<else/>
+						<input class="input-xlarge form-control" type="text" value="{$info.rule.min_hour}h" readonly>
+						</eq>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">规则说明</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" readonly>{$info.rule.instruction}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">打卡日</label>
+					<div class="col-sm-8">
+						<label class="checkbox-inline">
+					        <input type="checkbox" value="0" <if condition="in_array(0, $info['rule']['days'])">checked</if> disabled> 周日
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="1" <if condition="in_array(1, $info['rule']['days'])">checked</if> disabled> 周一
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="2" <if condition="in_array(2, $info['rule']['days'])">checked</if> disabled> 周二
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="3" <if condition="in_array(3, $info['rule']['days'])">checked</if> disabled> 周三
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="4" <if condition="in_array(4, $info['rule']['days'])">checked</if> disabled> 周四
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="5" <if condition="in_array(5, $info['rule']['days'])">checked</if> disabled> 周五
+					    </label>
+					    <label class="checkbox-inline">
+					        <input type="checkbox" value="6" <if condition="in_array(6, $info['rule']['days'])">checked</if> disabled> 周六
+					    </label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="u_fname" class="control-label col-sm-2">打卡次数</label>
+					<div class="col-sm-8">
+						<table class="table table-striped table-bordered" style="margin-top: 5px;">
+		                    <thead>
+		                        <tr>
+									<th>限定时间</th>
+									<th>开始时间</th>
+									<th>结束时间</th>
+									<th>定位门店</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody id="fieldsArea">
+								<volist name="info.rule.times" id="vo">
+									<tr class="rowlink top_action">
+										<td>
+											<eq name="vo.time" value="0">
+											<input class="input-sm form-control" value="否" readonly>
+											<else/>
+											<input class="input-sm form-control" value="是" readonly>
+											</eq>
+										</td>
+										<td>
+											<input class="input-sm form-control" value="{$vo.start}" readonly>
+										</td>
+										<td>
+											<input class="input-sm form-control" value="{$vo.end}" readonly>
+										</td>
+										<td>
+											<eq name="vo.location" value="0">
+											<input class="input-sm form-control" value="否" readonly>
+											<else/>
+											<input class="input-sm form-control" value="是" readonly>
+											</eq>
+										</td>
+									</tr>
+								</volist>
+		                    </tbody>
+		                </table>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+    </div>
+</div>
+	
