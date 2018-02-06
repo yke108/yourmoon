@@ -1,0 +1,4 @@
+Runtime/
+Site/upload/
+.git/
+config.db.php
